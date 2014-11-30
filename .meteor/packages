@@ -1,0 +1,12 @@
+# Meteor packages used by this project, one per line.
+#
+# 'meteor add' and 'meteor remove' will edit this file for you,
+# but you can also edit it by hand.
+
+meteor-platform
+iron:router
+mquandalle:jade
+less
+nemo64:bootstrap
+sacha:spin@2.0.4
+natestrauser:font-awesome@4.1.0

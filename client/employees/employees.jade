@@ -1,0 +1,19 @@
+template(name='employees')
+    .row
+        .col-sm-6.col-sm-offset-3
+            .panel.panel-default
+                .panel-heading Mitarbeiter
+                .panel-body
+                    ul.list-group
+                        each employees
+                            li.list-group-item
+                                a(href='employee/{{_id}}') {{ name }}
+                                i.fa.fa-times.text-right.remove-employee(data-employee-id='{{_id}}' style='float:right; cursor:pointer;')
+
+    .row
+        .col-sm-4.col-sm-offset-4.m-t-lg
+            form#new-employee-form(role='form')
+                h4 Neuen Mitarbeiter erfassen
+                .form-group
+                    input.form-control(id='new-employee-input' type='text' name='name' placeholder='Name' required)
+                button.btn.btn-sm.btn-default#new-employee-submit(type='submit') Erstellen

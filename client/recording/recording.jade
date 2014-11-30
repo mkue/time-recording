@@ -1,0 +1,14 @@
+template(name='recording')
+    .row
+        .col-xs-12.text-center
+            h3 {{ name }} - {{ project }}
+    .row
+        .container
+            .my-clock.m-t-lg
+
+    .row
+        .col-xs-4.col-xs-offset-4.text-center.m-t-lg
+            if running
+                button.btn.btn-xlarge.btn-danger#stop-button Stop
+            else
+                button.btn.btn-xlarge.btn-success#start-button Start
