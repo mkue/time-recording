@@ -1,9 +1,9 @@
 Template.projects.helpers({
     projects: function() {
         return Projects.find({}, {
-            // sort: {
-            //     name: 1
-            // }
+            sort: {
+                name: 1
+            }
         });
     }
 });

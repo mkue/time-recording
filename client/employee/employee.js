@@ -9,7 +9,11 @@ Template.employee.helpers({
         return Employees.getEmployeeProjects(this._id);
     },
     availableProjects: function() {
-        return Projects.find();
+        return Projects.find({}, {
+            sort: {
+                name: 1
+            }
+        });
     }
 });
 
