@@ -1,6 +1,10 @@
 Template.home.helpers({
     employees: function() {
-        return Employees.find();
+        return Employees.find({}, {
+            sort: {
+                name: 1
+            }
+        });
     }
 });
 
