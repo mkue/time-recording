@@ -52,7 +52,7 @@ Template.exporter.events({
                 createdAt: -1
             }
         }).forEach(function(recording) {
-            csv += '\n' + recording.userId + ',' + recording.projectId + ',' + recording.stopDate + ',' + recording.stopDate;
+            csv += '\n' + recording.userId + ',' + recording.projectId + ',' + recording.startDate + ',' + recording.stopDate;
         });
         var encodedUri = encodeURI(csv);
         window.open(encodedUri);
