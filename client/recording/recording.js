@@ -12,7 +12,7 @@ Template.recording.rendered = function() {
             _id: currentRecordingId
         });
         var now = new Date();
-        clock.setTime(now.getTime() / 1000 - recording.startDate.getTime() / 1000);
+        clock.setTime(now.getTime() / 1000 - recording.startDate / 1000);
         clock.start();
     }
 };
@@ -43,7 +43,7 @@ Template.recording.events({
         var recordingId = Recordings.insert({
             projectId: this.projectId,
             userId: this.userId,
-            startDate: new Date()
+            startDate: new Date().getTime()
         });
         Employees.update({
             _id: this.userId
@@ -62,7 +62,7 @@ Template.recording.events({
             _id: currentRecordingId
         }, {
             $set: {
-                stopDate: new Date()
+                stopDate: new Date().getTime()
             }
         });
         Employees.update({

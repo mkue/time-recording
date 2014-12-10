@@ -13,8 +13,8 @@ Template.exporter.events({
         if (isValidDate(start) && isValidDate(stop)) {
             recordings = Recordings.find({
                 startDate: {
-                    $gte: start,
-                    $lt: stop
+                    $gte: start.getTime(),
+                    $lt: stop.getTime()
                 }
             }, {
                 sort: {
@@ -37,7 +37,7 @@ Template.exporter.events({
             if (employee && project) {
                 csv += '\n' + employee._id + ',' + employee.name + ',';
                 csv += project._id + ',' + project.name + ',';
-                csv += recording.startDate + ',' + recording.stopDate;
+                csv += new Date(recording.startDate) + ',' + new Date(recording.stopDate);
             }
         });
         var encodedUri = encodeURI(csv);
@@ -52,7 +52,7 @@ Template.exporter.events({
                 createdAt: -1
             }
         }).forEach(function(recording) {
-            csv += '\n' + recording.userId + ',' + recording.projectId + ',' + recording.startDate + ',' + recording.stopDate;
+            csv += '\n' + recording.userId + ',' + recording.projectId + ',' + new Date(recording.startDate) + ',' + new Date(recording.stopDate);
         });
         var encodedUri = encodeURI(csv);
         window.open(encodedUri);
