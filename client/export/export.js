@@ -1,3 +1,22 @@
+var serializeRecording = function(recording) {
+    var csv = '';
+    var employee = Employees.findOne(recording.userId);
+    var project = Projects.findOne(recording.projectId);
+    if (employee && project) {
+        csv += '\n' + employee.name + ',';
+        csv += project.name + ',';
+        var startDate = new Date(recording.startDate);
+        var stopDate = new Date(recording.stopDate);
+        csv += startDate.getDate() + '.' + (startDate.getMonth() + 1) + '.' + startDate.getFullYear() + ',';
+        csv += startDate.getHours() + ':' + startDate.getMinutes() + ',';
+        csv += startDate.getMinutes() < 10 ? '0' : '';
+        csv += stopDate.getDate() + '.' + (stopDate.getMonth() + 1) + '.' + stopDate.getFullYear() + ',';
+        csv += stopDate.getHours() + ':' + stopDate.getMinutes();
+        csv += stopDate.getMinutes() < 10 ? '0' : '';
+    }
+    return csv;
+};
+
 Template.exporter.events({
     'submit form': function(event) {
         var isValidDate = function(d) {
@@ -29,16 +48,10 @@ Template.exporter.events({
             });
         }
         var csv = 'data:text/csv;charset=utf-8,';
-        csv += '\n' + 'Mitarbeiter ID,Mitarbeiter,Projekt ID,Projekt,Start,Ende';
+        csv += 'Mitarbeiter,Projekt,Start Datum,Start Zeit,End Datum,End Zeit';
 
         recordings.forEach(function(recording) {
-            var employee = Employees.findOne(recording.userId);
-            var project = Projects.findOne(recording.projectId);
-            if (employee && project) {
-                csv += '\n' + employee._id + ',' + employee.name + ',';
-                csv += project._id + ',' + project.name + ',';
-                csv += new Date(recording.startDate) + ',' + new Date(recording.stopDate);
-            }
+            csv += serializeRecording(recording);
         });
         var encodedUri = encodeURI(csv);
         window.open(encodedUri);
@@ -46,13 +59,13 @@ Template.exporter.events({
 
     'click #export-all-recordings': function() {
         var csv = 'data:text/csv;charset=utf-8,';
-        csv += '\n' + 'Mitarbeiter ID,Projekt ID,Start,Ende';
+        csv += 'Mitarbeiter,Projekt,Start Datum,Start Zeit,End Datum,End Zeit';
         Recordings.find({}, {
             sort: {
                 createdAt: -1
             }
         }).forEach(function(recording) {
-            csv += '\n' + recording.userId + ',' + recording.projectId + ',' + new Date(recording.startDate) + ',' + new Date(recording.stopDate);
+            csv += serializeRecording(recording);
         });
         var encodedUri = encodeURI(csv);
         window.open(encodedUri);
@@ -60,7 +73,7 @@ Template.exporter.events({
 
     'click #export-all-projects': function() {
         var csv = 'data:text/csv;charset=utf-8,';
-        csv += '\n' + 'Projekt ID,Name';
+        csv += 'Projekt ID,Name';
         Projects.find().forEach(function(project) {
             csv += '\n' + project._id + ',' + project.name;
         });

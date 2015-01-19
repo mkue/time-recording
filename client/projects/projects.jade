@@ -14,4 +14,8 @@ template(name='projects')
                 .form-group
                     h4 Neues Projekt erstellen
                     input.form-control(id='new-project-input' type='text' name='name' placeholder='Name' required)
+                .checkbox
+                    label
+                        input(type='checkbox' id='assign-employees')
+                        | Allen Mitarbeiter zuweisen
                 button.btn.btn-sm.btn-default#new-project-submit(type='submit') Erstellen
