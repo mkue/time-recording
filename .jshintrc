@@ -105,6 +105,7 @@
         //Collections
         "Employees": true,
         "Projects": true,
-        "Recordings": true
+        "Recordings": true,
+        "Exporter": true
     }
 }

@@ -1,7 +1,8 @@
 template(name='navbar')
     nav.navbar.navbar-default(role='navigation')
         .navbar-center.navbar-brand
-            a.navbar-brand(href="{{ pathFor 'home' }}") Zeiterfassung
+            a.navbar-brand(href="{{ pathFor 'home' }}")
+                img(src='/logo.png')
         .collapse.navbar-collapse
             ul.nav.navbar-nav.navbar-right
                 li.dropdown
@@ -13,5 +14,3 @@ template(name='navbar')
                             a(href="{{ pathFor 'employees' }}") Mitarbeiter
                         li
                             a(href="{{ pathFor 'projects' }}") Projekte
-                        li
-                            a(href="{{ pathFor 'exporter' }}") Export

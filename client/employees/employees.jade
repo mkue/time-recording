@@ -4,11 +4,14 @@ template(name='employees')
             .panel.panel-default
                 .panel-heading Mitarbeiter
                 .panel-body
-                    ul.list-group
-                        each employees
-                            li.list-group-item
-                                a(href='employee/{{_id}}') {{ name }}
-                                i.fa.fa-times.text-right.remove-employee(data-employee-id='{{_id}}' style='float:right; cursor:pointer;')
+                    table.table.b-light.m-t-sm
+                        tbody
+                            each employees
+                                tr
+                                    td(width='90%' style='vertical-align: middle;')
+                                        a(href='employee/{{_id}}') {{ name }}
+                                    td(width='10%' style='vertical-align: middle;')
+                                        i.fa.fa-times.remove-employee(data-employee-id='{{_id}}' style='float:right; cursor:pointer;')
 
     .row
         .col-sm-4.col-sm-offset-4.m-t-lg
@@ -17,3 +20,4 @@ template(name='employees')
                 .form-group
                     input.form-control(id='new-employee-input' type='text' name='name' placeholder='Name' required)
                 button.btn.btn-sm.btn-default#new-employee-submit(type='submit') Erstellen
+    +removeModal

@@ -4,10 +4,16 @@ template(name='projects')
             .panel.panel-default
                 .panel-heading Projekte
                 .panel-body
-                    ul.list-group
-                        each projects
-                            li.list-group-item {{ name }}
-                                i.fa.fa-times.text-right.remove-project(data-project-id='{{_id}}' style='float:right; cursor:pointer;')
+                    table.table.b-light.m-t-sm
+                        tbody
+                            each projects
+                                tr
+                                    td(width='70%' style='vertical-align: middle;')
+                                        a(href='employee/{{_id}}') {{ name }}
+                                    td(width='20%' style='vertical-align: middle;')
+                                        button.btn.btn-sm.export-project(data-project-id='{{_id}}') Exportieren
+                                    td(width='10%' style='vertical-align: middle;')
+                                        i.fa.fa-times.remove-project(data-project-id='{{_id}}' style='float:right; cursor:pointer;')
     .row    
         .col-sm-4.col-sm-offset-4.m-t-lg
             form#new-project-form(role='form')
@@ -17,5 +23,6 @@ template(name='projects')
                 .checkbox
                     label
                         input(type='checkbox' id='assign-employees')
-                        | Allen Mitarbeiter zuweisen
+                        | Alle Mitarbeiter zuweisen
                 button.btn.btn-sm.btn-default#new-project-submit(type='submit') Erstellen
+    +removeModal
