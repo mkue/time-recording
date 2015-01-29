@@ -4,10 +4,17 @@ Template.employee.created = function() {
     userId = this.data._id;
 };
 
+Template.employee.rendered = function() {
+    if (Employees.findOne(userId).nineOClockBreak) {
+        $('#nine-o-clock-break').attr('checked', true);
+    }
+};
+
 Template.employee.helpers({
     projects: function() {
         return Employees.getEmployeeProjects(this._id);
     },
+
     availableProjects: function() {
         return Projects.find({}, {
             sort: {
@@ -26,5 +33,14 @@ Template.employee.events({
     'click #remove-project': function() {
         var projectId = $('#remove-project').attr('data-project-id');
         Employees.removeProject(userId, projectId);
+    },
+
+    'click #nine-o-clock-break': function() {
+        var checked = $('#nine-o-clock-break').prop('checked');
+        Employees.update(userId, {
+            $set: {
+                nineOClockBreak: checked
+            }
+        });
     }
 });

@@ -1,4 +1,7 @@
 template(name='layout')
-    +navbar
+    nav.navbar.navbar-default(role='navigation')
+        .navbar-center.navbar-brand
+            a.navbar-brand(href="{{ pathFor 'home' }}")
+                img(src='/logo.png')
     .container-fluid
         +yield

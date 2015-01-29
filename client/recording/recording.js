@@ -52,6 +52,9 @@ Template.recording.events({
                 currentRecording: recordingId
             }
         });
+        setTimeout(function() {
+            Router.go('home');
+        }, 2500);
     },
 
     'click #stop-button': function() {
@@ -72,5 +75,8 @@ Template.recording.events({
                 currentRecording: null
             }
         });
+        setTimeout(function() {
+            Router.go('home');
+        }, 1500);
     }
 });

@@ -12,12 +12,6 @@ Employees.allow({
     }
 });
 
-Employees.addNewEmployee = function(name) {
-    Employees.insert({
-        name: name
-    });
-};
-
 Employees.addProject = function(employeeId, projectId) {
     Employees.update({
         _id: employeeId
