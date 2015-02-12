@@ -3,4 +3,4 @@ template(name='home')
         each employees
             .col-sm-3.m-t-lg
                 a(type="button")
-                    button.btn.btn-xlarge.btn-default#employee-button=name
+                    button.btn.btn-xlarge.btn-default(style="background-color: {{color}};")#employee-button=name

@@ -5,12 +5,16 @@ Template.home.helpers({
                 name: 1
             }
         });
+    },
+    color: function() {
+        if (Recordings.getCurrentRecording(this._id)) {
+            return '#0FAD4F';
+        }
     }
 });
 
 Template.home.events({
     'click #employee-button': function() {
-        console.log(this);
         var currentRecordingId = Recordings.getCurrentRecording(this._id);
         if (currentRecordingId) {
             var projectId = Recordings.findOne({

@@ -2,7 +2,7 @@ var userId;
 
 Template.selectProject.helpers({
     projects: function() {
-        return Employees.getEmployeeProjects(this._id);
+        return Employees.getEmployeeProjects(this._id, true);
     },
 
     userId: function() {

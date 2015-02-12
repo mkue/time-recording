@@ -1,0 +1,11 @@
+template(name='removeModal')
+    .modal.fade#remove-modal(tabindex='-1', role='dialog', aria-hidden='true')
+        .modal-dialog.modal-sm
+            .modal-content
+                .modal-header
+                    button.close(type='button', data-dismiss='modal')  
+                        span(aria-hidden='true') ×
+                    h4.modal-title Löschen
+                .modal-body.text-center
+                    button.btn.btn-danger#remove-button Löschen
+                    button.btn(data-dismiss='modal') Abbrechen

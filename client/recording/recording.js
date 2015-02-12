@@ -30,7 +30,6 @@ Template.recording.helpers({
     },
 
     project: function() {
-        console.log(this.projectId);
         return Projects.findOne({
             _id: this.projectId
         }).name;

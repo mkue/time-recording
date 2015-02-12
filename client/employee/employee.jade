@@ -24,3 +24,40 @@ template(name='employee')
                         option(value="default" disabled="disabled" selected) Auswählen
                         each availableProjects
                             option(value='{{_id}}') {{ name }}
+
+    .row
+        .col-sm-10.col-sm-offset-1
+            .panel.panel-default
+                .panel-heading Stempelzeiten
+                .panel-body
+                    ul.list-group
+                        li.list-group-item
+                                .row
+                                    strong.col-xs-5 Projekt
+                                    strong.col-xs-2 Tag
+                                    strong.col-xs-2 Startzeit
+                                    strong.col-xs-2 Endzeit
+                        each recordings
+                            li.list-group-item
+                                .row
+                                    .col-xs-5 {{ getProject projectId }}
+                                    .col-xs-2 {{ getDay startDate }}
+                                    .col-xs-2.start-date {{ getTime startDate }}
+                                    .col-xs-2.stop-date {{ getTime stopDate }}
+                                    .col-xs-1.remove-timestamp
+                                        i.fa.fa-times
+
+    .modal.fade#edit-timestamp-modal(tabindex='-1', role='dialog', aria-hidden='true')
+        .modal-dialog.modal-sm
+            .modal-content
+                .modal-header
+                    button.close(type='button', data-dismiss='modal')
+                        span(aria-hidden='true') ×
+                    h4.modal-title Stempelzeit bearbeiten
+                .modal-body.text-center
+                    .row
+                        input#time-input(type='time')
+                    .row.m-t-md
+                        button.btn.btn-success#edit-timestamp Bearbeiten
+                        button.btn(data-dismiss='modal') Abbrechen
+    +removeModal

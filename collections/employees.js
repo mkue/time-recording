@@ -32,20 +32,33 @@ Employees.removeProject = function(employeeId, projectId) {
     });
 };
 
-Employees.getEmployeeProjects = function(employeeId) {
+Employees.getEmployeeProjects = function(employeeId, onlyUnfinishedProjects) {
     var employee = Employees.findOne({
         _id: employeeId
     });
     var projectIds = employee ? employee.projects : undefined;
     if (projectIds) {
-        return Projects.find({
-            _id: {
-                $in: projectIds
-            }
-        }, {
-            sort: {
-                name: 1
-            }
-        });
+        if (onlyUnfinishedProjects) {
+            return Projects.find({
+                _id: {
+                    $in: projectIds
+                },
+                finished: false
+            }, {
+                sort: {
+                    name: 1
+                }
+            });
+        } else {
+            return Projects.find({
+                _id: {
+                    $in: projectIds
+                }
+            }, {
+                sort: {
+                    name: 1
+                }
+            });
+        }
     }
 };

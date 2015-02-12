@@ -1,0 +1,34 @@
+template(name='projectsAdmin')
+    .row
+        .col-sm-10.col-sm-offset-1
+            .panel.panel-default
+                .panel-heading Bestehende Projekte
+                .panel-body
+                    ul.list-group
+                        each projects
+                            li.list-group-item
+                                .row
+                                    .col-xs-7 {{ name }}
+                                    .col-xs-2
+                                        if finished
+                                            button.btn.btn-sm.btn-success.open-project Abgeschlossen
+                                        else
+                                            button.btn.btn-sm.finish-project Abschliessen
+                                    .col-xs-2
+                                        button.btn.btn-sm.export-project(data-project-id='{{_id}}') Exportieren
+                                    .col-xs-1
+                                        i.fa.fa-times.remove-project(data-project-id='{{_id}}' style='float:right; cursor:pointer;')
+
+    .row    
+        .col-sm-10.col-sm-offset-1.m-t-lg
+            .panel.panel-default
+                .panel-heading Neues Projekt erstellen
+                .panel-body
+                    form#new-project-form(role='form')
+                        .form-group
+                            input.form-control(id='new-project-input' type='text' name='name' placeholder='Name' required)
+                        .checkbox
+                            label
+                                input(type='checkbox' id='assign-employees')
+                                | Alle Mitarbeiter zuweisen
+                        button.btn.btn-default#new-project-submit(type='submit') Erstellen

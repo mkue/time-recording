@@ -11,9 +11,3 @@ Projects.allow({
         return true;
     }
 });
-
-Projects.addNewProject = function(name) {
-    Projects.insert({
-        name: name
-    });
-};

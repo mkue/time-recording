@@ -1,0 +1,38 @@
+template(name='employeesAdmin')
+    .row
+        .col-sm-10.col-sm-offset-1
+            .panel.panel-default
+                .panel-heading Bestehende Mitarbeiter
+                .panel-body
+                    ul.list-group
+                        each employees
+                            li.list-group-item
+                                .row
+                                    .col-xs-10
+                                        a(href='employee/{{_id}}') {{ name }}
+                                    .col-xs-2
+                                        i.fa.fa-times.remove-employee(data-employee-id='{{_id}}' style='float:right; cursor:pointer;')
+                .panel-body
+                    ul.list-group
+                        each projects
+                            li.list-group-item
+                                .row
+                                    .col-xs-8 {{ name }}
+                                    .col-xs-3
+                                        button.btn.btn-sm.export-project(data-project-id='{{_id}}') Exportieren
+                                    .col-xs-1
+                                        i.fa.fa-times.remove-project(data-project-id='{{_id}}' style='float:right; cursor:pointer;')                                            
+
+    .row
+        .col-sm-10.col-sm-offset-1.m-t-lg
+            .panel.panel-default
+                .panel-heading Neuen Mitarbeiter erfassen
+                .panel-body
+                    form#new-employee-form(role='form')
+                        .form-group
+                            input.form-control(id='new-employee-input' type='text' name='name' placeholder='Name' required)
+                        .checkbox
+                            label
+                                input(type='checkbox' id='nine-o-clock-break')
+                                | Macht Pause von 9:00 - 9:15 (Maschinenhalle)
+                        button.btn.btn-sm.btn-default#new-employee-submit(type='submit') Erstellen
