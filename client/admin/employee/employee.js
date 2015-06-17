@@ -1,11 +1,11 @@
-var userId, startDate, stopDate, currentProject, currentTimestamp;
+var employeeId, startDate, stopDate, currentProject, currentTimestamp;
 
 Template.employee.created = function() {
-    userId = this.data._id;
+    employeeId = this.data._id;
 };
 
 Template.employee.rendered = function() {
-    if (Employees.findOne(userId).nineOClockBreak) {
+    if (Employees.findOne(employeeId).nineOClockBreak) {
         $('#nine-o-clock-break').attr('checked', true);
     }
 };
@@ -24,7 +24,7 @@ Template.employee.helpers({
     },
     recordings: function() {
         return Recordings.find({
-            userId: userId
+            userId: employeeId
         }, {
             sort: {
                 startDate: -1
@@ -47,25 +47,43 @@ Template.employee.helpers({
 
 Template.employee.events({
     'change #project-selector': function(event) {
-        Employees.addProject(userId, event.target.value);
+        Employees.addProject(employeeId, event.target.value);
         $('#project-selector').prop('selectedIndex', 0);
     },
 
-    'click #remove-project': function() {
-        var projectId = $('#remove-project').attr('data-project-id');
-        Employees.removeProject(userId, projectId);
+    'click .remove-project': function() {
+        Employees.removeProject(employeeId, this._id);
     },
 
     'click #nine-o-clock-break': function() {
         var checked = $('#nine-o-clock-break').prop('checked');
-        Employees.update(userId, {
+        Employees.update(employeeId, {
             $set: {
                 nineOClockBreak: checked
             }
         });
     },
 
-    'click .start-date': function() {
+    'click .recording-day': function() {
+        var recordingMoment = moment(this.startDate);
+        console.log(recordingMoment.format('DD.MM HH:mm'));
+        recordingMoment.startOf('day');
+        var startOfDayInMillis = recordingMoment.valueOf();
+        recordingMoment.endOf('day');
+        var endOfDayInMillis = recordingMoment.valueOf();
+        var recordings = Recordings.find({
+            userId: employeeId,
+            startDate: {
+                $gt: startOfDayInMillis
+            },
+            stopDate: {
+                $lt: endOfDayInMillis
+            }
+        }).fetch();
+        console.log(recordings);
+    },
+
+    'click .recording-start-time': function() {
         startDate = this.startDate;
         stopDate = false;
         currentProject = this.projectId;
@@ -74,7 +92,7 @@ Template.employee.events({
         $('#edit-timestamp-modal').modal();
     },
 
-    'click .stop-date': function() {
+    'click .recording-stop-time': function() {
         stopDate = this.stopDate;
         startDate = false;
         currentProject = this.projectId;
@@ -121,5 +139,9 @@ Template.employee.events({
             });
         }
         $('#edit-timestamp-modal').modal('hide');
+    },
+
+    'click #export-employee': function() {
+        Exporter.exportEmployee(employeeId);
     }
 });

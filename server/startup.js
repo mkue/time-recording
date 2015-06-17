@@ -21,9 +21,9 @@ Meteor.startup(function() {
     if (millisUntil23 < 0) {
         millisUntil23 += 86400000; // it's after 23:00, try 23:00 tomorrow.
     }
-    setTimeout(function() {
+    Meteor.setTimeout(function() {
         stopRunningProjects();
-        setInterval(stopRunningProjects, 86400000);
+        Meteor.setInterval(stopRunningProjects, 86400000);
     }, millisUntil23);
 });
 
