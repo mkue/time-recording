@@ -1,10 +1,16 @@
+var lastProjectStops;
+
 var stopRunningProjects = function() {
+    lastProjectStops = new Date();
     Recordings.update({
         stopDate: {
             $exists: false
         }
     }, {
-        stopDate: new Date().getTime()
+        $set: {
+            stopDate: new Date().getTime(),
+            automaticallyStopped: true
+        }
     });
     Employees.update({}, {
         $set: {
@@ -30,5 +36,28 @@ Meteor.startup(function() {
 Meteor.methods({
     'stopProjects': function() {
         stopRunningProjects();
+    },
+
+    'getLastProjectStops': function() {
+        return lastProjectStops;
+    }, // use Meteor.call('getLastProjectStops', function(error, result){console.log(result)}); to get the lastProjectStops variable
+
+    'removeEmployee': function(employeeId) {
+        Employees.remove(employeeId);
+        Recordings.remove({
+            userId: employeeId
+        });
+    },
+
+    'removeProject': function(projectId) {
+        Projects.remove(projectId);
+        Recordings.remove({
+            projectId: projectId
+        });
+        Employees.update({}, {
+            $pull: {
+                projects: projectId
+            }
+        });
     }
 });

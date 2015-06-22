@@ -15,12 +15,18 @@ Template.projectsAdmin.helpers({
 Template.projectsAdmin.events({
     'submit form': function(event) {
         event.preventDefault();
-        var name = event.target.name.value;
-        var checked = $('#assign-employees').prop('checked');
+        var projectNr = event.target.projectNr.value;
+        var machineNr = event.target.machineNr.value;
+        var machineType = event.target.machineType.value;
+        var customer = event.target.customer.value;
         var projectId = Projects.insert({
-            name: name,
+            projectNr: projectNr,
+            machineNr: machineNr,
+            machineType: machineType,
+            customer: customer,
             finished: false
         });
+        var checked = $('#assign-employees').prop('checked');
         if (checked) {
             Employees.find({}).forEach(function(employee) {
                 Employees.addProject(employee._id, projectId);
@@ -50,7 +56,7 @@ Template.projectsAdmin.events({
         });
     },
 
-    'click .open-project': function() {
+    'click .reopen-project': function() {
         Projects.update({
             _id: this._id
         }, {

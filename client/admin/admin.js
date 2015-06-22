@@ -5,10 +5,10 @@ Template.admin.events({
         var projectId = $('#remove-button').attr('data-project-id');
         if (employeeId) {
             $('#remove-button').removeAttr('data-employee-id');
-            Employees.remove(employeeId);
+            Meteor.call('removeEmployee', employeeId);
         } else if (projectId) {
             $('#remove-button').removeAttr('data-project-id');
-            Projects.remove(projectId);
+            Meteor.call('removeProject', projectId);
         }
         $('#remove-modal').modal('hide');
     }

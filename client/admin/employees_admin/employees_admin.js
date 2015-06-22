@@ -5,6 +5,16 @@ Template.employeesAdmin.helpers({
                 name: 1
             }
         });
+    },
+
+    forgotToLogout: function() {
+        var userId = this._id;
+        if (Recordings.findOne({
+                userId: userId,
+                automaticallyStopped: true
+            })) {
+            return "#F2DEDE"
+        }
     }
 });
 

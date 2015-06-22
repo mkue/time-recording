@@ -33,7 +33,8 @@ Template.employee.helpers({
     },
 
     getProject: function(id) {
-        return Projects.findOne(id).name;
+        var project = Projects.findOne(id);
+        return project.projectNr + " - " + project.machineNr + " " + project.machineType + " - " + project.customer;
     },
 
     getDay: function(timeInMillis) {
@@ -125,7 +126,8 @@ Template.employee.events({
                 _id: currentTimestamp
             }, {
                 $set: {
-                    startDate: date.valueOf()
+                    startDate: date.valueOf(),
+                    automaticallyStopped: false
                 }
             });
         } else {
@@ -134,7 +136,8 @@ Template.employee.events({
                 _id: currentTimestamp
             }, {
                 $set: {
-                    stopDate: date.valueOf()
+                    stopDate: date.valueOf(),
+                    automaticallyStopped: false
                 }
             });
         }

@@ -30,9 +30,8 @@ Template.recording.helpers({
     },
 
     project: function() {
-        return Projects.findOne({
-            _id: this.projectId
-        }).name;
+        var project = Projects.findOne(this.projectId);
+        return project.projectNr + " - " + project.machineNr + " " + project.machineType + " - " + project.customer;
     }
 });
 
@@ -64,7 +63,8 @@ Template.recording.events({
             _id: currentRecordingId
         }, {
             $set: {
-                stopDate: new Date().getTime()
+                stopDate: new Date().getTime(),
+                automaticallyStopped: false
             }
         });
         Employees.update({

@@ -13,7 +13,7 @@ template(name='employee')
                 .panel-body
                     ul.list-group
                         each projects
-                            li.list-group-item {{ name }}
+                            li.list-group-item {{ projectNr }} - {{ machineNr }} {{ machineType }} - {{ customer }}
                                 i.fa.fa-times.text-right.remove-project(data-project-id='{{_id}}' style='float:right; cursor:pointer;')
     .row
         .col-sm-10.col-sm-offset-1
@@ -23,7 +23,7 @@ template(name='employee')
                     select.form-control#project-selector
                         option(value="default" disabled="disabled" selected) Auswählen
                         each availableProjects
-                            option(value='{{_id}}') {{ name }}
+                            option(value='{{_id}}') {{ projectNr }} - {{ machineNr }} {{ machineType }} - {{ customer }}
 
     .row
         .col-sm-10.col-sm-offset-1

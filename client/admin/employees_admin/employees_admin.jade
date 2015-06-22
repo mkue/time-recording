@@ -6,7 +6,7 @@ template(name='employeesAdmin')
                 .panel-body
                     ul.list-group
                         each employees
-                            li.list-group-item
+                            li.list-group-item(style="background: {{forgotToLogout}};")
                                 .row
                                     .col-xs-10
                                         a(href='employee/{{_id}}') {{ name }}
