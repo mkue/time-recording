@@ -8,7 +8,7 @@ template(name='projectsAdmin')
                         each projects
                             li.list-group-item
                                 .row
-                                    .col-xs-7 {{ projectNr }} - {{ machineNr }} {{ machineType }} - {{ customer }}
+                                    .col-xs-7 {{ projectNr }}_{{ machineNr }}_{{ machineType }}_{{ customer }}
                                     .col-xs-2
                                         if finished
                                             button.btn.btn-sm.btn-success.reopen-project Abgeschlossen
@@ -17,7 +17,7 @@ template(name='projectsAdmin')
                                     .col-xs-2
                                         button.btn.btn-sm.export-project(data-project-id='{{_id}}') Exportieren
                                     .col-xs-1
-                                        i.fa.fa-times.remove-project(data-project-id='{{_id}}' style='float:right; cursor:pointer;')
+                                        i.fa.fa-times.pointer.remove-project(data-project-id='{{_id}}' style='float:right;')
 
     .row    
         .col-sm-10.col-sm-offset-1.m-t-lg
@@ -29,13 +29,13 @@ template(name='projectsAdmin')
                             input.form-control(type='text', name='projectNr' placeholder='Projektnummer' required)
                             input.form-control.m-t-md(type='text', name='machineNr' placeholder='Maschinennummer' required)
                             select.form-control.m-t-md(name='machineType' required)
-                                option(value='default' disabled='disabled' selected) Maschinentyp
-                                option(value='asdf') asdf
-                                option(value='qwer') qwer
+                                option(value='default' disabled='disabled' selected) Maschinen-Typ
+                                each machineTypes
+                                    option(value='{{name}}') {{ name }}
                             input.form-control.m-t-md(type='text' name='customer' placeholder='Kunde' required)
 
                         .checkbox
                             label
-                                input(type='checkbox' id='assign-employees')
-                                | Alle Mitarbeiter zuweisen
+                                input(type='checkbox' id='assign-employees' checked)
+                                | Allen Mitarbeiter zuweisen
                         button.btn.btn-default#new-project-submit(type='submit') Erstellen

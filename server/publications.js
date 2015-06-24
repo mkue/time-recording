@@ -9,3 +9,7 @@ Meteor.publish('projects', function() {
 Meteor.publish('recordings', function() {
     return Recordings.find();
 });
+
+Meteor.publish('machineTypes', function() {
+    return MachineTypes.find();
+});

@@ -9,6 +9,10 @@ Template.projectsAdmin.helpers({
 
     finished: function() {
         return Projects.findOne(this._id).finished;
+    },
+
+    machineTypes: function() {
+        return MachineTypes.find();
     }
 });
 

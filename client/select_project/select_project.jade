@@ -4,4 +4,4 @@ template(name='selectProject')
             each projects
                 .col-xs-6.m-t-lg
                     a(type="button" href="/recording/{{userId}}/{{_id}}")
-                        button.btn.btn-default.btn-xlarge {{ projectNr }} - {{ machineNr }} {{ machineType }} - {{ customer }}
+                        button.btn.btn-default.btn-xlarge {{ projectNr }}_{{ machineNr }}_{{ machineType }}_{{ customer }}

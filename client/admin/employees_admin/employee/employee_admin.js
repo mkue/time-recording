@@ -1,16 +1,16 @@
-var employeeId, startDate, stopDate, currentProject, currentTimestamp;
+var employeeId, startDate, stopDate, recordingId;
 
-Template.employee.created = function() {
+Template.employeeAdmin.created = function() {
     employeeId = this.data._id;
 };
 
-Template.employee.rendered = function() {
+Template.employeeAdmin.rendered = function() {
     if (Employees.findOne(employeeId).nineOClockBreak) {
         $('#nine-o-clock-break').attr('checked', true);
     }
 };
 
-Template.employee.helpers({
+Template.employeeAdmin.helpers({
     projects: function() {
         return Employees.getEmployeeProjects(this._id);
     },
@@ -24,7 +24,10 @@ Template.employee.helpers({
     },
     recordings: function() {
         return Recordings.find({
-            userId: employeeId
+            userId: employeeId,
+            stopDate: {
+                $exists: true
+            }
         }, {
             sort: {
                 startDate: -1
@@ -43,10 +46,16 @@ Template.employee.helpers({
 
     getTime: function(timeInMillis) {
         return moment(timeInMillis).format('HH:mm');
+    },
+
+    forgotToLogout: function() {
+        if (this.automaticallyStopped)
+            return "#F2DEDE"
     }
+
 });
 
-Template.employee.events({
+Template.employeeAdmin.events({
     'change #project-selector': function(event) {
         Employees.addProject(employeeId, event.target.value);
         $('#project-selector').prop('selectedIndex', 0);
@@ -86,19 +95,19 @@ Template.employee.events({
 
     'click .recording-start-time': function() {
         startDate = this.startDate;
-        stopDate = false;
-        currentProject = this.projectId;
-        currentTimestamp = this._id;
+        stopDate = this.stopDate;
+        recordingId = this._id;
         $('#time-input').val(moment(startDate).format('HH:mm'));
+        $('#time-input').attr('data-date-type', 'start');
         $('#edit-timestamp-modal').modal();
     },
 
     'click .recording-stop-time': function() {
         stopDate = this.stopDate;
-        startDate = false;
-        currentProject = this.projectId;
-        currentTimestamp = this._id;
+        startDate = this.startDate;
+        recordingId = this._id;
         $('#time-input').val(moment(stopDate).format('HH:mm'));
+        $('#time-input').attr('data-date-type', 'stop');
         $('#edit-timestamp-modal').modal();
     },
 
@@ -116,32 +125,29 @@ Template.employee.events({
     },
 
     'click #edit-timestamp': function() {
-        var date;
         var time = $('#time-input').val();
-        var hour = time.substr(0, 2);
-        var min = time.substr(3, 4);
-        if (startDate) {
-            date = moment(startDate).hour(hour).minute(min);
-            Recordings.update({
-                _id: currentTimestamp
-            }, {
-                $set: {
-                    startDate: date.valueOf(),
-                    automaticallyStopped: false
-                }
-            });
-        } else {
-            date = moment(stopDate).hour(hour).minute(min);
-            Recordings.update({
-                _id: currentTimestamp
-            }, {
-                $set: {
-                    stopDate: date.valueOf(),
-                    automaticallyStopped: false
-                }
-            });
+        var hour = time.substr(0, time.indexOf(':'));
+        var min = time.substr(time.indexOf(':') + 1, time.length - 1);
+        var timeIsValid = hour >= 0 && hour <= 23 && min >= 0 && min <= 59
+        var dateType = $('#time-input').attr('data-date-type');
+        $('#time-input').removeAttr('data-date-type');
+        if (dateType == 'start') {
+            startDate = moment(startDate).hour(hour).minute(min).valueOf();
+        } else if (dateType = 'stop') {
+            stopDate = moment(stopDate).hour(hour).minute(min).valueOf();
         }
-        $('#edit-timestamp-modal').modal('hide');
+        if (timeIsValid && startDate.valueOf() < stopDate.valueOf()) {
+            Recordings.update({
+                _id: recordingId
+            }, {
+                $set: {
+                    startDate: startDate,
+                    stopDate: stopDate,
+                    automaticallyStopped: false
+                }
+            });
+            $('#edit-timestamp-modal').modal('hide');
+        }
     },
 
     'click #export-employee': function() {

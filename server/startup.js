@@ -11,6 +11,8 @@ var stopRunningProjects = function() {
             stopDate: new Date().getTime(),
             automaticallyStopped: true
         }
+    }, {
+        multi: true
     });
     Employees.update({}, {
         $set: {
@@ -23,14 +25,14 @@ var stopRunningProjects = function() {
 
 Meteor.startup(function() {
     var now = new Date();
-    var millisUntil23 = new Date(now.getFullYear(), now.getMonth(), now.getDate(), 23, 0, 0, 0) - now;
-    if (millisUntil23 < 0) {
-        millisUntil23 += 86400000; // it's after 23:00, try 23:00 tomorrow.
+    var millisUntilMidnight = new Date(now.getFullYear(), now.getMonth(), now.getDate(), 23, 59, 59, 0) - now;
+    if (millisUntilMidnight < 0) {
+        millisUntilMidnight += 86400000; // it's after 23:00, try 23:00 tomorrow.
     }
     Meteor.setTimeout(function() {
         stopRunningProjects();
         Meteor.setInterval(stopRunningProjects, 86400000);
-    }, millisUntil23);
+    }, millisUntilMidnight);
 });
 
 Meteor.methods({
@@ -59,5 +61,9 @@ Meteor.methods({
                 projects: projectId
             }
         });
+    },
+
+    'removeMachineType': function(machineTypeId) {
+        MachineTypes.remove(machineTypeId);
     }
 });

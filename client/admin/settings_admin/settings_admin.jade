@@ -1,0 +1,23 @@
+template(name='settingsAdmin')
+    .row
+        .col-sm-10.col-sm-offset-1
+            .panel.panel-default
+                .panel-heading Machinen-Typen
+                .panel-body
+                    ul.list-group
+                        each machineTypes
+                            li.list-group-item
+                                .row
+                                    .col-xs-10 {{ name }}
+                                    .col-xs-2
+                                        i.fa.fa-times.remove-machine-type(data-machine-type-id='{{_id}}' style='float:right; cursor:pointer;')
+
+    .row    
+        .col-sm-10.col-sm-offset-1.m-t-lg
+            .panel.panel-default
+                .panel-heading Neuen Machinen-Typ erfassen
+                .panel-body
+                    form#new-machine-type-form(role='form')
+                        .form-group
+                            input.form-control.m-t-md(type='text' name='machineType' placeholder='Machinen-Typ' required)
+                        button.btn.btn-default#new-machine-type-submit(type='submit') Erstellen
