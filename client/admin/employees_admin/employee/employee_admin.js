@@ -130,13 +130,12 @@ Template.employeeAdmin.events({
         var min = time.substr(time.indexOf(':') + 1, time.length - 1);
         var timeIsValid = hour >= 0 && hour <= 23 && min >= 0 && min <= 59
         var dateType = $('#time-input').attr('data-date-type');
-        $('#time-input').removeAttr('data-date-type');
         if (dateType == 'start') {
             startDate = moment(startDate).hour(hour).minute(min).valueOf();
         } else if (dateType = 'stop') {
             stopDate = moment(stopDate).hour(hour).minute(min).valueOf();
         }
-        if (timeIsValid && startDate.valueOf() < stopDate.valueOf()) {
+        if (timeIsValid && startDate < stopDate) {
             Recordings.update({
                 _id: recordingId
             }, {
