@@ -24,15 +24,15 @@ var stopRunningProjects = function() {
 };
 
 Meteor.startup(function() {
-    var now = new Date();
-    var millisUntilMidnight = new Date(now.getFullYear(), now.getMonth(), now.getDate(), 23, 59, 59, 0) - now;
-    if (millisUntilMidnight < 0) {
-        millisUntilMidnight += 86400000; // it's after 23:00, try 23:00 tomorrow.
-    }
-    Meteor.setTimeout(function() {
-        stopRunningProjects();
-        Meteor.setInterval(stopRunningProjects, 86400000);
-    }, millisUntilMidnight);
+    (function loop() {
+        var now = new Date();
+        if (now.getHours() === 23) {
+            stopRunningProjects();
+        }
+        now = new Date();
+        var delay =  3600000;
+        setTimeout(loop, delay);
+    })();
 });
 
 Meteor.methods({

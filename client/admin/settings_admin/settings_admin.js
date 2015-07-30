@@ -1,7 +1,10 @@
 Template.settingsAdmin.helpers({
     machineTypes: function() {
-        var machineTypes = MachineTypes.find({});
-        return machineTypes;
+        return MachineTypes.find({}, {
+            sort: {
+                name: 1
+            }
+        });
     }
 });
 

@@ -12,7 +12,11 @@ Template.projectsAdmin.helpers({
     },
 
     machineTypes: function() {
-        return MachineTypes.find();
+        return MachineTypes.find({}, {
+            sort: {
+                name: 1
+            }
+        });
     }
 });
 
