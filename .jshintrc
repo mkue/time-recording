@@ -106,6 +106,7 @@
         "Employees": true,
         "Projects": true,
         "Recordings": true,
-        "Exporter": true
+        "Exporter": true,
+        "MachineTypes": true
     }
 }

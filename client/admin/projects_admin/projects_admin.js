@@ -2,7 +2,7 @@ Template.projectsAdmin.helpers({
     projects: function() {
         return Projects.find({}, {
             sort: {
-                name: 1
+                projectNr: 1
             }
         });
     },
