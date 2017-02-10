@@ -1,15 +1,19 @@
 template(name='recording')
     .row
         .col-xs-12.text-center
-            h3 {{ name }}
-            h3 {{ project }}
+            h3 {{ projectName }}
     .row
-        .container
-            .my-clock.m-t-lg
-
+        .col-xs-7.text-center
+            h5 Datum
+            .date-picker.m-t-lg
+        .col-xs-5.text-center
+            h5 Dauer
+            .start-time-picker
     .row
         .col-xs-4.col-xs-offset-4.text-center.m-t-lg
-            if running
-                button.btn.btn-xlarge.btn-danger#stop-button Stop
-            else
-                button.btn.btn-xlarge.btn-success#start-button Start
+            button.btn.btn-xlarge.btn-success#finish-button Fertig
+    .row
+        .col-xs-6.col-xs-offset-3.m-t-lg
+            .form-group
+              label(for='comment') Kommentar:
+              textarea#comment.form-control(rows='20')

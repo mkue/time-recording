@@ -11,10 +11,3 @@ Recordings.allow({
         return true;
     }
 });
-
-Recordings.getCurrentRecording = function(userId) {
-    var employee = Employees.findOne({
-        _id: userId
-    });
-    return employee.currentRecording;
-};

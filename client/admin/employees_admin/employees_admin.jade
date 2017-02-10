@@ -6,7 +6,7 @@ template(name='employeesAdmin')
                 .panel-body
                     ul.list-group
                         each employees
-                            li.list-group-item(style="background: {{forgotToLogout}};")
+                            li.list-group-item
                                 .row
                                     .col-xs-10
                                         a(href='admin/employee-admin/{{_id}}') {{ name }}
@@ -21,8 +21,4 @@ template(name='employeesAdmin')
                     form#new-employee-form(role='form')
                         .form-group
                             input.form-control(id='new-employee-input' type='text' name='name' placeholder='Name' required)
-                        .checkbox
-                            label
-                                input(type='checkbox' id='nine-o-clock-break')
-                                | Macht Pause von 9:00 - 9:15 (Maschinenhalle)
                         button.btn.btn-sm.btn-default#new-employee-submit(type='submit') Erstellen

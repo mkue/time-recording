@@ -8,7 +8,7 @@ template(name='projectsAdmin')
                         each projects
                             li.list-group-item
                                 .row
-                                    .col-xs-7 {{ projectNr }}_{{ machineNr }}_{{ machineType }}_{{ customer }}
+                                    .col-xs-7 {{ projectName }}
                                     .col-xs-2
                                         if finished
                                             button.btn.btn-sm.btn-success.reopen-project Abgeschlossen
@@ -26,16 +26,11 @@ template(name='projectsAdmin')
                 .panel-body
                     form#new-project-form(role='form')
                         .form-group
-                            input.form-control(type='text', name='projectNr' placeholder='Maschinen-/Projektnummer' required)
-                            input.form-control.m-t-md(type='text', name='machineNr' placeholder='Interne Nummer' required)
-                            select.form-control.m-t-md(name='machineType' required)
-                                option(value='default' disabled='disabled' selected) Maschinen-Typ
+                            input.form-control(type='text', name='projectNr' placeholder='Maschinen-/Projektnummer (optional)')
+                            input.form-control.m-t-md(type='text', name='machineNr' placeholder='Interne Nummer (optional)')
+                            select.form-control.m-t-md(name='machineType')
+                                option(value='default' disabled='disabled' selected) Maschinen-Typ (optional)
                                 each machineTypes
                                     option(value='{{name}}') {{ name }}
-                            input.form-control.m-t-md(type='text' name='customer' placeholder='Kunde' required)
-
-                        .checkbox
-                            label
-                                input(type='checkbox' id='assign-employees' checked)
-                                | Allen Mitarbeiter zuweisen
+                            input.form-control.m-t-md(type='text' name='customer' placeholder='Kunde/Name' required)
                         button.btn.btn-default#new-project-submit(type='submit') Erstellen

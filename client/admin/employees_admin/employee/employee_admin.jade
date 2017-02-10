@@ -2,28 +2,6 @@ template(name='employeeAdmin')
     .row
         .col-xs-12.text-center
             h1 {{ name }}
-            .checkbox
-                label
-                    input(type='checkbox' id='nine-o-clock-break')
-                    | Macht Pause von 9:00 - 9:15 (Maschinenhalle)
-    .row
-        .col-sm-10.col-sm-offset-1
-            .panel.panel-default
-                .panel-heading Projekte
-                .panel-body
-                    ul.list-group
-                        each projects
-                            li.list-group-item {{ projectNr }} - {{ machineNr }} {{ machineType }} - {{ customer }}
-                                i.fa.fa-times.pointer.remove-project(data-project-id='{{_id}}' style='float:right;')
-    .row
-        .col-sm-10.col-sm-offset-1
-            .panel.panel-default
-                .panel-heading Neues Projekt zu Mitarbeiter hinzufügen
-                .panel-body
-                    select.form-control#project-selector
-                        option(value="default" disabled="disabled" selected) Auswählen
-                        each availableProjects
-                            option(value='{{_id}}') {{ projectNr }} - {{ machineNr }} {{ machineType }} - {{ customer }}
 
     .row
         .col-sm-10.col-sm-offset-1
@@ -33,17 +11,15 @@ template(name='employeeAdmin')
                     ul.list-group
                         li.list-group-item
                                 .row
-                                    strong.col-xs-5 Projekt
-                                    strong.col-xs-2 Tag
-                                    strong.col-xs-2 Startzeit
-                                    strong.col-xs-2 Endzeit
+                                    strong.col-xs-6 Projekt
+                                    strong.col-xs-3 Tag
+                                    strong.col-xs-2 Dauer
                         each recordings
-                            li.list-group-item(style="background: {{forgotToLogout}};")
+                            li.list-group-item
                                 .row
-                                    .col-xs-5 {{ getProject projectId }}
-                                    .col-xs-2.recording-day {{ getDay startDate }}
-                                    .col-xs-2.pointer.recording-start-time {{ getTime startDate }}
-                                    .col-xs-2.pointer.recording-stop-time {{ getTime stopDate }}
+                                    .col-xs-6 {{ getProject projectId }}
+                                    .col-xs-3 {{ getDate date }}
+                                    .col-xs-2 {{ getDuration duration }}
                                     .col-xs-1.remove-timestamp
                                         i.fa.fa-times.pointer
 
