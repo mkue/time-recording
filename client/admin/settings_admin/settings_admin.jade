@@ -13,7 +13,7 @@ template(name='settingsAdmin')
                                         i.fa.fa-times.remove-machine-type(data-machine-type-id='{{_id}}' style='float:right; cursor:pointer;')
 
     .row    
-        .col-sm-10.col-sm-offset-1.m-t-lg
+        .col-sm-10.col-sm-offset-1
             .panel.panel-default
                 .panel-heading Neuen Machinen-Typ erfassen
                 .panel-body
@@ -21,3 +21,27 @@ template(name='settingsAdmin')
                         .form-group
                             input.form-control.m-t-md(type='text' name='machineType' placeholder='Machinen-Typ' required)
                         button.btn.btn-default#new-machine-type-submit(type='submit') Erstellen
+
+    
+    .row
+        .col-sm-10.col-sm-offset-1.m-t-lg
+            .panel.panel-default
+                .panel-heading Kommentare
+                .panel-body
+                    ul.list-group
+                        each comments
+                            li.list-group-item
+                                .row
+                                    .col-xs-10 {{ comment }}
+                                    .col-xs-2
+                                        i.fa.fa-times.remove-comment(data-comment-id='{{_id}}' style='float:right; cursor:pointer;')
+
+    .row    
+        .col-sm-10.col-sm-offset-1
+            .panel.panel-default
+                .panel-heading Neuen Kommentar erfassen
+                .panel-body
+                    form#new-comment-form(role='form')
+                        .form-group
+                            input.form-control.m-t-md(type='text' name='comment' placeholder='Kommentar' required)
+                        button.btn.btn-default#new-comment-type-submit(type='submit') Erstellen

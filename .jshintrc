@@ -108,6 +108,7 @@
         "Projects": true,
         "Recordings": true,
         "Exporter": true,
-        "MachineTypes": true
+        "MachineTypes": true,
+        "Comments": true
     }
 }

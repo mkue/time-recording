@@ -10,10 +10,12 @@ template(name='recording')
             h5 Dauer
             .start-time-picker
     .row
+        .col-xs-6.col-xs-offset-3.m-t-lg
+            select#comment.form-control.m-t-md(name='comment')
+                option(value='default' disabled='disabled' selected) Kommentar (optional)
+                each comments
+                    option(value='{{comment}}') {{ comment }}
+
+    .row
         .col-xs-4.col-xs-offset-4.text-center.m-t-lg
             button.btn.btn-xlarge.btn-success#finish-button Fertig
-    .row
-        .col-xs-6.col-xs-offset-3.m-t-lg
-            .form-group
-              label(for='comment') Kommentar:
-              textarea#comment.form-control(rows='20')

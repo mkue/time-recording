@@ -18,5 +18,8 @@ Meteor.methods({
     },
     'removeMachineType': function(machineTypeId) {
         MachineTypes.remove(machineTypeId);
+    },
+    'removeComment': function(commentId) {
+        Comments.remove(commentId);
     }
 });

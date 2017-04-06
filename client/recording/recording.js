@@ -15,9 +15,18 @@ Template.recording.helpers({
             _id: this.userId
         }).name;
     },
+    
     projectName: function() {
         var project = Projects.findOne(this.projectId);
         return Projects.getProjectName(project);
+    },
+    
+    comments: function() {
+        return Comments.find({}, {
+            sort: {
+                comment: 1
+            }
+        });
     }
 });
 Template.recording.events({

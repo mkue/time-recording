@@ -1,6 +1,6 @@
-Employees = new Meteor.Collection('employees');
+Comments = new Meteor.Collection('comments');
 
-Employees.allow({
+Comments.allow({
     insert: function() {
         return true;
     },
