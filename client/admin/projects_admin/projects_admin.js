@@ -40,6 +40,9 @@ Template.projectsAdmin.events({
         var projectId = $(event.target).attr('data-project-id');
         Exporter.exportProject(projectId);
     },
+    'click .export-all-projects': function() {
+        Exporter.exportAllTimestamps();
+    },
     'click .remove-project': function(event) {
         var projectId = $(event.target).attr('data-project-id');
         $('#remove-button').attr('data-project-id', projectId);
